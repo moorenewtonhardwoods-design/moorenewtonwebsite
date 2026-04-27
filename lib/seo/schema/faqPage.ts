@@ -13,6 +13,11 @@ export interface FAQPageSchema {
   }>;
 }
 
+export interface SimpleFAQItem {
+  question: string;
+  answer: string;
+}
+
 function blockContentToPlainText(blocks: BlockContent | undefined): string {
   if (!blocks) return '';
 
@@ -46,6 +51,27 @@ export function buildFAQPageSchema(faqs: FaqItem[]): FAQPageSchema | null {
       acceptedAnswer: {
         '@type': 'Answer',
         text: blockContentToPlainText(faq.answer),
+      },
+    })),
+  };
+}
+
+export function buildSimpleFAQPageSchema(faqs: SimpleFAQItem[]): FAQPageSchema | null {
+  const validFaqs = faqs.filter((faq) => faq.question && faq.answer);
+
+  if (validFaqs.length === 0) {
+    return null;
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: validFaqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
       },
     })),
   };

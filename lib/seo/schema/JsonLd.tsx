@@ -1,4 +1,6 @@
-export function JsonLd<T extends object>({ data }: { data: T }) {
+export function JsonLd<T extends object>({ data }: { data: T | null }) {
+  if (!data) return null;
+
   return (
     <script
       type="application/ld+json"

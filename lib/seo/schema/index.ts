@@ -15,8 +15,8 @@ export type { ProductSchema } from './product';
 export { buildBreadcrumbListSchema } from './breadcrumbList';
 export type { BreadcrumbListSchema, BreadcrumbItem } from './breadcrumbList';
 
-export { buildFAQPageSchema } from './faqPage';
-export type { FAQPageSchema } from './faqPage';
+export { buildFAQPageSchema, buildSimpleFAQPageSchema } from './faqPage';
+export type { FAQPageSchema, SimpleFAQItem } from './faqPage';
 
 export { buildAboutPageSchema } from './aboutPage';
 export type { AboutPageSchema, BuildAboutPageSchemaOptions } from './aboutPage';
