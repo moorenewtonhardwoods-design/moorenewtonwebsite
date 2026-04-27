@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { H2, H3, Eyebrow, Body } from '@/components/Typography';
 import { PageHero, FAQ, FinalCTA } from '@/components/sections';
 import { buildMetadata } from '@/lib/seo/metadata';

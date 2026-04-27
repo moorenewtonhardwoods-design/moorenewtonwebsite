@@ -241,7 +241,7 @@ function extractWhereItComesFrom(content: string): string {
   const section = content.match(/## 4\. Where It Comes From[\s\S]*?(?=---)/);
   if (!section) return '';
 
-  let text = section[0]
+  const text = section[0]
     .replace(/## 4\. Where It Comes From[^\n]*\n+/, '')
     .replace(/\*\*FSC note:\*\*[\s\S]*$/, '')
     .trim();

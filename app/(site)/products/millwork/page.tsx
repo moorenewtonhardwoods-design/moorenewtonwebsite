@@ -55,20 +55,6 @@ const faqItems = [
   },
 ];
 
-const speciesLinks = [
-  { name: 'White Oak', href: '/species/white-oak' },
-  { name: 'Rift White Oak', href: '/species/white-oak-rift' },
-  { name: 'Quartersawn White Oak', href: '/species/quartersawn-white-oak' },
-  { name: 'Black Walnut', href: '/species/walnut' },
-  { name: 'Poplar', href: '/species/poplar' },
-  { name: 'Honduran Mahogany', href: '/species/honduran-mahogany' },
-  { name: 'African Mahogany', href: '/species/african-mahogany' },
-  { name: 'Hard Maple', href: '/species/hard-maple' },
-  { name: 'Sapele', href: '/species/sapele' },
-  { name: 'Douglas Fir', href: '/species/douglas-fir' },
-  { name: 'Western Red Cedar', href: '/species/western-red-cedar' },
-];
-
 export default function MillworkPage() {
   return (
     <>
