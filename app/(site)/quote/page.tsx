@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { H2, H3, Eyebrow, Body } from '@/components/Typography';
 import { PageHero, FAQ, FinalCTA } from '@/components/sections';
-import { FormPlaceholder } from '@/components/FormPlaceholder';
+import { QuoteForm } from '@/components/forms';
 import { buildMetadata } from '@/lib/seo/metadata';
 import {
   JsonLd,
@@ -116,7 +116,7 @@ export default async function QuotePage() {
           <Eyebrow className="mb-4">Request Form</Eyebrow>
           <H2 className="mb-6">Send us your project.</H2>
 
-          <FormPlaceholder formName="quote" />
+          <QuoteForm />
 
           <Body className="mt-4 text-sm text-muted">
             We respond within one business day. For faster turnaround on urgent orders, call us at{' '}

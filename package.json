@@ -16,6 +16,7 @@
     "sanity:typegen": "sanity schema extract --path=sanity/schema.json && sanity typegen generate --schema=sanity/schema.json --output=sanity/types.generated.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@next/third-parties": "^16.2.4",
     "@portabletext/react": "^6.0.3",
     "@sanity/client": "^7.22.0",
@@ -25,7 +26,9 @@
     "next-sanity": "^12.3.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "sanity": "^5.22.0"
+    "react-hook-form": "^7.74.0",
+    "sanity": "^5.22.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",

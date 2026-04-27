@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { H2, H3, Eyebrow, Body } from '@/components/Typography';
 import { PageHero, FinalCTA } from '@/components/sections';
-import { FormPlaceholder } from '@/components/FormPlaceholder';
+import { ContactForm } from '@/components/forms';
 import { buildMetadata } from '@/lib/seo/metadata';
 import {
   JsonLd,
@@ -56,7 +56,7 @@ export default async function ContactPage() {
             reply within 24 hours.
           </Body>
 
-          <FormPlaceholder formName="contact" />
+          <ContactForm />
 
           <Body className="mt-4 text-sm text-muted">
             We respond within one business day. New-customer inquiries route directly to our
