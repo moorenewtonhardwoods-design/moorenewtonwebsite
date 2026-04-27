@@ -13,9 +13,9 @@ import {
 import { getSiteSettings } from '@/lib/sanity/queries';
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Contact Moore Newton Hardwoods | San Leandro, CA',
+  title: 'Contact Moore Newton | San Leandro Hardwood Dist.',
   description:
-    'Contact Moore Newton Hardwoods in San Leandro. Visit our showroom, call our sales team, or request a quote. Open Monday–Friday 7:00 AM–4:30 PM.',
+    'Visit, call, or message Moore Newton. 2115 Williams Street, San Leandro, CA. Open M–F, 8 AM–4:30 PM. Next-day Bay Area delivery from $500, no fee at $750+ commercial.',
   path: '/contact',
 });
 
@@ -32,7 +32,7 @@ export default async function ContactPage() {
       />
       <JsonLd
         data={buildContactPageSchema({
-          title: 'Contact Moore Newton Hardwoods',
+          title: 'Contact Moore Newton',
           description: 'Contact Moore Newton Hardwoods in San Leandro, California.',
         })}
       />
@@ -41,8 +41,8 @@ export default async function ContactPage() {
       {/* Hero */}
       <PageHero
         eyebrow="Contact"
-        title="Contact Us."
-        subhead="Visit our San Leandro showroom, call our sales team, or send us a message. We're here to help with your hardwood lumber and millwork needs."
+        title="Contact Moore Newton."
+        subhead="Check stock. Get a quote. Spec out a project. Send us a message and our sales team will reply within 24 hours."
         breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Contact' }]}
       />
 
@@ -50,13 +50,18 @@ export default async function ContactPage() {
       <section className="py-16 md:py-20 bg-canvas">
         <div className="max-w-4xl mx-auto px-6">
           <Eyebrow className="mb-4">Contact Sales</Eyebrow>
-          <H2 className="mb-6">Send us a message.</H2>
+          <H2 className="mb-6">Talk to our sales team.</H2>
           <Body className="mb-8">
-            Have a question about our inventory, need a quote, or want to discuss a project? Fill
-            out the form below and our sales team will get back to you within one business day.
+            Check stock. Get a quote. Spec out a project. Send us a message and our sales team will
+            reply within 24 hours.
           </Body>
 
           <FormPlaceholder formName="contact" />
+
+          <Body className="mt-4 text-sm text-muted">
+            We respond within one business day. New-customer inquiries route directly to our
+            operations lead.
+          </Body>
         </div>
       </section>
 
@@ -64,20 +69,16 @@ export default async function ContactPage() {
       <section className="py-16 md:py-20 bg-surface">
         <div className="max-w-4xl mx-auto px-6">
           <Eyebrow className="mb-4">Call In</Eyebrow>
-          <H2 className="mb-6">Talk to our sales team directly.</H2>
-          <Body className="mb-6">
-            For quotes, stock checks, or project discussions, call our sales desk during business
-            hours. Our team knows the inventory and can answer questions about species, grades, and
-            availability on the spot.
-          </Body>
-          <Body className="mb-6">
-            <strong>Phone:</strong>{' '}
-            <a href="tel:+15103521855" className="text-accent hover:text-emphasis underline">
-              (510) 352-1855
+          <H2 className="mb-6">
+            <a href="tel:+15103176500" className="hover:text-accent">
+              (510) 317-6500
             </a>
-          </Body>
+          </H2>
           <Body>
-            <strong>Hours:</strong> Monday–Friday, 7:00 AM–4:30 PM
+            Monday through Friday, 8:00 AM to 4:30 PM Pacific. For anything beyond a quick inventory
+            question — cutlists, project specs, delivery scheduling — please use the contact form
+            above. It routes directly to our sales team and gives us the detail we need to turn a
+            quote around faster.
           </Body>
         </div>
       </section>
@@ -85,11 +86,17 @@ export default async function ContactPage() {
       {/* Visit Us */}
       <section className="py-16 md:py-20 bg-canvas">
         <div className="max-w-4xl mx-auto px-6">
-          <Eyebrow className="mb-4">Visit Us</Eyebrow>
-          <H2 className="mb-6">Come see the inventory.</H2>
+          <Eyebrow className="mb-4">Come See Us</Eyebrow>
+          <H2 className="mb-6">2115 Williams Street, San Leandro, CA 94577.</H2>
           <Body className="mb-6">
-            Our San Leandro showroom is open to the public. Walk the aisles, pull boards, and talk
-            to the sales team about your project. No appointment needed.
+            Our facility is open for browsing and customer pickup Monday through Friday, 8:00 AM to
+            4:30 PM. Pull into the Williams Street gate, check in at the sales counter, and
+            we&apos;ll point you to the aisle or help you pull an order. No appointment required.
+          </Body>
+          <Body className="mb-6">
+            First-time visitors: we&apos;ll set up a customer account for you when you arrive.
+            Having an account on file means faster pickup next time and unlocks delivery when you
+            need it.
           </Body>
 
           <div className="mb-6">
@@ -97,80 +104,92 @@ export default async function ContactPage() {
               <strong>Moore Newton Hardwoods</strong>
             </Body>
             <Body>
-              2075 Williams Street
+              2115 Williams Street
               <br />
               San Leandro, CA 94577
             </Body>
           </div>
 
           <Body className="mb-6">
-            <strong>Showroom Hours:</strong>
+            <strong>Hours:</strong>
             <br />
-            Monday–Friday: 7:00 AM–4:30 PM
+            Monday–Friday: 8:00 AM – 4:30 PM
             <br />
-            Saturday–Sunday: Closed
+            Closed Saturday, Sunday, and major U.S. holidays
           </Body>
 
-          <Body>
-            <a
-              href="https://maps.google.com/?q=2075+Williams+Street+San+Leandro+CA+94577"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:text-emphasis underline"
-            >
-              Get directions on Google Maps →
-            </a>
-          </Body>
+          <a
+            href="https://maps.google.com/?q=2115+Williams+Street+San+Leandro+CA+94577"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white rounded hover:bg-emphasis transition-colors"
+          >
+            Get Directions
+          </a>
         </div>
       </section>
 
       {/* Pickup & Delivery */}
       <section className="py-16 md:py-20 bg-surface">
         <div className="max-w-4xl mx-auto px-6">
-          <Eyebrow className="mb-4">Pickup & Delivery</Eyebrow>
-          <H2 className="mb-6">Will-call or delivered to your shop.</H2>
+          <Eyebrow className="mb-4">Pick Up Today, or Have It Delivered Tomorrow</Eyebrow>
 
-          <div className="space-y-6">
-            <div>
-              <H3 className="text-base mb-2">Will-call pickup</H3>
-              <Body>
-                Place your order ahead of time and pick it up at our loading dock. Call when you
-                arrive and we&apos;ll have your material ready. Most orders are ready for pickup
-                within a few hours of confirmation.
-              </Body>
+          <div className="grid gap-8 md:grid-cols-2">
+            <div className="bg-canvas p-6 rounded-lg">
+              <H3 className="text-base mb-4">Will-Call Pickup</H3>
+              <ul className="space-y-2 text-body list-disc pl-6">
+                <li>
+                  Available Monday–Friday, 8:00 AM to 4:30 PM at our Williams Street facility.
+                </li>
+                <li>No minimum order. Any quantity, any species.</li>
+                <li>Open to anyone. First-time buyers, we&apos;ll set up a customer account at the counter.</li>
+                <li>Forklift loading available for heavy orders.</li>
+              </ul>
             </div>
-            <div>
-              <H3 className="text-base mb-2">Local delivery</H3>
-              <Body>
-                We deliver throughout the Bay Area and Northern California. Delivery is scheduled at
-                the time of order; typical lead time is 2–5 business days depending on your
-                location. See our{' '}
-                <Link href="/delivery" className="text-accent hover:text-emphasis underline">
-                  delivery page
-                </Link>{' '}
-                for zone details and scheduling.
-              </Body>
+            <div className="bg-canvas p-6 rounded-lg">
+              <H3 className="text-base mb-4">Next-Day Delivery</H3>
+              <ul className="space-y-2 text-body list-disc pl-6">
+                <li>
+                  <strong>$50 flat delivery fee</strong> on orders $500 and up, placed by 4:30 PM
+                  Pacific.
+                </li>
+                <li>
+                  <strong>No delivery fee</strong> on orders over $750 to commercial addresses;{' '}
+                  <strong>$35 reduced fee</strong> on orders over $750 to residential addresses.
+                </li>
+                <li>
+                  Delivery area: San Francisco, Oakland, Berkeley, San Jose, San Rafael, Palo Alto,
+                  Walnut Creek, Fremont, Hayward, Daly City, Santa Cruz, Salinas/Carmel, and the
+                  surrounding Greater Bay Area. Clear Lake weekly (Wednesdays). Sacramento and the
+                  foothills on a 2–3 day schedule. LTL freight (including U.S. military bases) on
+                  request.
+                </li>
+                <li>Orders below $500 are will-call only.</li>
+              </ul>
             </div>
           </div>
+
+          <Body className="mt-6">
+            <Link href="/delivery" className="text-accent hover:text-emphasis underline">
+              Full Delivery Details →
+            </Link>
+          </Body>
         </div>
       </section>
 
       {/* Follow Us */}
       <section className="py-16 md:py-20 bg-canvas">
         <div className="max-w-4xl mx-auto px-6">
-          <Eyebrow className="mb-4">Follow Us</Eyebrow>
-          <H2 className="mb-6">Stay connected.</H2>
-          <Body className="mb-6">
-            Follow Moore Newton on social media for inventory updates, project features, and news
-            from the showroom.
-          </Body>
+          <Eyebrow className="mb-4">Instagram</Eyebrow>
+          <Body className="mb-4">See what&apos;s on the floor and what&apos;s going out the door.</Body>
           <Body>
-            <strong>Email:</strong>{' '}
             <a
-              href="mailto:info@moorenewton.com"
+              href="https://www.instagram.com/moorenewtonhardwoods"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-accent hover:text-emphasis underline"
             >
-              info@moorenewton.com
+              @moorenewtonhardwoods →
             </a>
           </Body>
         </div>
@@ -178,10 +197,10 @@ export default async function ContactPage() {
 
       {/* Final CTA */}
       <FinalCTA
-        heading="Need a quote?"
-        body="Tell us what you're looking for — species, dimensions, quantity — and we'll get back to you within one business day."
+        heading="Ready to get a quote?"
+        body="The fastest way to get pricing on a specific cutlist or project is through the quote form — it routes the request straight to our sales team with all the detail we need."
         primaryCta={{ label: 'Request a Quote', href: '/quote', variant: 'primary' }}
-        secondaryCta={{ label: 'Browse Species →', href: '/species', variant: 'secondary' }}
+        secondaryCta={{ label: 'Contact Sales →', href: '#contact-sales', variant: 'secondary' }}
       />
     </>
   );
