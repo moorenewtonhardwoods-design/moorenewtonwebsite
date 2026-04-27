@@ -1,3 +1,4 @@
+// Document types
 import { siteSettings } from './siteSettings';
 import { navigation } from './navigation';
 import { homePage } from './homePage';
@@ -10,7 +11,21 @@ import { productPage } from './productPage';
 import { industry } from './industry';
 import { faqItem } from './faqItem';
 
+// Object types
+import { imageWithAlt } from './objects/imageWithAlt';
+import { ctaBlock } from './objects/ctaBlock';
+import { seoFields } from './objects/seoFields';
+import { specRow } from './objects/specRow';
+import { gradeStocked } from './objects/gradeStocked';
+import { thicknessSpec } from './objects/thicknessSpec';
+import { relatedSpeciesRef } from './objects/relatedSpeciesRef';
+import { sectionBlock } from './objects/sectionBlock';
+import { productTile } from './objects/productTile';
+import { industryRef } from './objects/industryRef';
+import { blockContent } from './objects/blockContent';
+
 export const schemaTypes = [
+  // Document types
   siteSettings,
   navigation,
   homePage,
@@ -22,4 +37,17 @@ export const schemaTypes = [
   productPage,
   industry,
   faqItem,
+
+  // Object types
+  imageWithAlt,
+  ctaBlock,
+  seoFields,
+  specRow,
+  gradeStocked,
+  thicknessSpec,
+  relatedSpeciesRef,
+  sectionBlock,
+  productTile,
+  industryRef,
+  blockContent,
 ];
