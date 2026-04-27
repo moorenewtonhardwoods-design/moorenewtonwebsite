@@ -37,3 +37,11 @@ jobs:
 
       - name: Run e2e tests
         run: pnpm test:e2e
+        env:
+          NEXT_PUBLIC_SANITY_PROJECT_ID: 3mozn5ff
+          NEXT_PUBLIC_SANITY_DATASET: production
+          NEXT_PUBLIC_SANITY_API_VERSION: 2024-10-01
+          NEXT_PUBLIC_HUBSPOT_PORTAL_ID: 5302852
+          NEXT_PUBLIC_HUBSPOT_QUOTE_FORM_ID: 223ad648-c6d8-46c4-ad68-10e3be6622fe
+          NEXT_PUBLIC_HUBSPOT_CONTACT_FORM_ID: ebecd94b-2fd6-4322-8203-b0bdaddbf38a
+          HUBSPOT_REGION: na2
