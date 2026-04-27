@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
+import { fontVariables } from './fonts';
 import './globals.css';
-
-// TODO: Wire up fonts (Jost, Libre Baskerville, IBM Plex Mono) per Design System Style Guide
 
 export const metadata: Metadata = {
   title: 'Moore Newton Hardwoods',
@@ -19,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={fontVariables}>
       <body>{children}</body>
     </html>
   );

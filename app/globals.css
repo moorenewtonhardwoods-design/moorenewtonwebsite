@@ -1,26 +1,37 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* ===== PRIMARY COLORS ===== */
+  --color-canvas: #F5F0E8;
+  --color-surface: #EDE6D8;
+  --color-accent: #8B6914;
+  --color-body: #5C4A2E;
+  --color-emphasis: #2C2416;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* ===== SECONDARY COLORS ===== */
+  /* WCAG AA Note: These colors fail contrast for text on canvas/surface.
+     Use only for backgrounds, borders, or decorative elements. */
+  --color-highlight: #D4A0A0;
+  --color-positive: #8A9A7B;
+  --color-info: #7E92A5;
+  --color-warning: #C9A84C;
+  --color-warm: #B86B4A;
+
+  /* ===== FONT FAMILIES ===== */
+  /* Maps next/font CSS variables to semantic names */
+  --font-display: var(--font-jost), Futura, Arial, sans-serif;
+  --font-body: var(--font-baskerville), Georgia, serif;
+  --font-mono: var(--font-plex-mono), "Courier New", monospace;
+
+  /* ===== LETTER SPACING ===== */
+  --tracking-headline: 0.15em;
+  --tracking-subhead: 0.08em;
+  --tracking-label: 0.2em;
+  --tracking-wide: 0.12em;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-canvas);
+  color: var(--color-body);
+  font-family: var(--font-body);
 }
