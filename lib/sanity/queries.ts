@@ -312,6 +312,27 @@ export async function getAllSpecies(): Promise<SpeciesPage[]> {
   });
 }
 
+export interface FeaturedSpecies {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  botanicalName?: string;
+  hero?: { subhead?: string };
+}
+
+export async function getFeaturedSpecies(): Promise<FeaturedSpecies[]> {
+  return sanityFetch<FeaturedSpecies[]>({
+    query: /* groq */ `*[_type == "speciesPage" && featuredOnHome == true] | order(title asc) {
+      _id,
+      title,
+      slug,
+      botanicalName,
+      hero { subhead }
+    }`,
+    tags: ['sanity:species'],
+  });
+}
+
 export async function getSpeciesBySlug(slug: string): Promise<SpeciesPage | null> {
   return sanityFetchOrNull<SpeciesPage>({
     query: /* groq */ `*[_type == "speciesPage" && slug.current == $slug][0] {
