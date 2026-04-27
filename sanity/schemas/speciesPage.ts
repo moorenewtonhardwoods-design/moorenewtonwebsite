@@ -274,16 +274,17 @@ export const speciesPage = defineType({
       slug: 'slug.current',
     },
     prepare({ title, botanicalName, category, slug }) {
-      const categoryLabel = {
+      const categoryLabels: Record<string, string> = {
         'domestic-hardwood': 'Domestic',
         'imported-hardwood': 'Imported',
         softwood: 'Softwood',
         specialty: 'Specialty',
-      }[category] || category;
+      };
+      const categoryLabel = (category && categoryLabels[category]) || category || '';
 
       return {
         title: title || 'Untitled species',
-        subtitle: `${botanicalName || ''} · ${categoryLabel || ''} · /species/${slug || ''}`.replace(/^ · | · $/g, ''),
+        subtitle: `${botanicalName || ''} · ${categoryLabel} · /species/${slug || ''}`.replace(/^ · | · $/g, ''),
       };
     },
   },
