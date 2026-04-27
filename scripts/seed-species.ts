@@ -366,7 +366,7 @@ function textToBlockContent(text: string, keyPrefix: string): object[] {
   }));
 }
 
-function createSanityDocument(parsed: ParsedSpecies): object {
+function createSanityDocument(parsed: ParsedSpecies): { _id: string; _type: string; [key: string]: unknown } {
   const docId = `drafts.species-${parsed.slug}`;
 
   const doc: Record<string, unknown> = {
@@ -434,7 +434,7 @@ function createSanityDocument(parsed: ParsedSpecies): object {
     };
   }
 
-  return doc;
+  return doc as { _id: string; _type: string; [key: string]: unknown };
 }
 
 function extractBotanicalName(subhead: string): string {
