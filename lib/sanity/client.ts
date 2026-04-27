@@ -1,5 +1,12 @@
-import { createClient, type QueryParams } from 'next-sanity';
+import { createClient } from 'next-sanity';
 import { projectId, dataset, apiVersion } from '@/sanity/env';
+
+if (typeof window !== 'undefined') {
+  throw new Error(
+    'lib/sanity/client.ts must not be imported in client bundles. ' +
+      'Use sanityFetch from lib/sanity/fetch.ts in server components only.'
+  );
+}
 
 export const client = createClient({
   projectId,
@@ -8,21 +15,10 @@ export const client = createClient({
   useCdn: true,
 });
 
-export async function sanityFetch<T>({
-  query,
-  params = {},
-  revalidate = 60,
-  tags = [],
-}: {
-  query: string;
-  params?: QueryParams;
-  revalidate?: number | false;
-  tags?: string[];
-}): Promise<T> {
-  return client.fetch<T>(query, params, {
-    next: {
-      revalidate: tags.length ? false : revalidate,
-      tags,
-    },
-  });
-}
+export const writeClient = createClient({
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn: false,
+  token: process.env.SANITY_API_READ_TOKEN,
+});
