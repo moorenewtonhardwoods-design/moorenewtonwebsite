@@ -76,6 +76,21 @@ export const speciesPage = defineType({
 
     // === HERO ===
     defineField({
+      name: 'heroImage',
+      title: 'Hero Image',
+      type: 'imageWithAlt',
+      description: 'Primary species swatch image displayed in hero section',
+      group: 'hero',
+    }),
+    defineField({
+      name: 'gallery',
+      title: 'Gallery',
+      type: 'array',
+      description: 'Additional cut images (quartersliced, rift, rotary, birdseye, etc.)',
+      group: 'hero',
+      of: [{ type: 'imageWithAlt' }],
+    }),
+    defineField({
       name: 'hero',
       title: 'Hero Section',
       type: 'object',

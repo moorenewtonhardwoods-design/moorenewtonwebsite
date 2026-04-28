@@ -347,6 +347,8 @@ export async function getSpeciesBySlug(slug: string): Promise<SpeciesPage | null
       category,
       primaryKeyword,
       featuredOnHome,
+      heroImage { ${imageWithAltFragment} },
+      gallery[] { ${imageWithAltFragment} },
       hero {
         h1,
         subhead,
@@ -491,6 +493,55 @@ export async function getAllFaqItems(scope?: FaqItem['scope']): Promise<FaqItem[
       relatedSpecies-> { _id, title, slug }
     }`,
     tags: ['sanity:faq'],
+  });
+}
+
+// =============================================================================
+// Face Species Swatches (for Hardwood Plywood page)
+// =============================================================================
+
+export interface FaceSpeciesSwatch {
+  _id: string;
+  originalFilename: string;
+  url: string;
+  altText?: string;
+  title?: string;
+}
+
+export async function getFaceSpeciesSwatches(): Promise<FaceSpeciesSwatch[]> {
+  return sanityFetch<FaceSpeciesSwatch[]>({
+    query: /* groq */ `*[_type == "sanity.imageAsset" && (
+      originalFilename match "white-oak*" ||
+      originalFilename match "red-oak*" ||
+      originalFilename match "quartersawn-white-oak*" ||
+      originalFilename match "rift-white-oak*" ||
+      originalFilename match "cherry*" ||
+      originalFilename match "black-walnut*" ||
+      originalFilename match "hard-maple*" ||
+      originalFilename match "soft-maple*" ||
+      originalFilename match "african-mahogany*" ||
+      originalFilename match "birch*" ||
+      originalFilename match "douglas-fir*" ||
+      originalFilename match "hickory*" ||
+      originalFilename match "poplar*" ||
+      originalFilename match "sapele*" ||
+      originalFilename match "teak*" ||
+      originalFilename match "alder*" ||
+      originalFilename match "ash*" ||
+      originalFilename match "honduran-mahogany*" ||
+      originalFilename match "western-red-cedar*" ||
+      originalFilename match "lacewood*" ||
+      originalFilename match "padauk*" ||
+      originalFilename match "wenge*" ||
+      originalFilename match "zebrawood*"
+    )] | order(originalFilename asc) {
+      _id,
+      originalFilename,
+      url,
+      altText,
+      title
+    }`,
+    tags: ['sanity:assets'],
   });
 }
 

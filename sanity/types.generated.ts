@@ -197,6 +197,26 @@ export type ImageWithAlt = {
   caption?: string;
 };
 
+export type Article = {
+  _id: string;
+  _type: 'article';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  heroImage?: ImageWithAlt;
+  publishedAt?: string;
+  body?: BlockContent;
+  seo?: SeoFields;
+};
+
+export type Slug = {
+  _type: 'slug';
+  current?: string;
+  source?: string;
+};
+
 export type FaqItem = {
   _id: string;
   _type: 'faqItem';
@@ -220,12 +240,6 @@ export type Industry = {
   shortDescription?: string;
   longDescription?: BlockContent;
   icon?: string;
-};
-
-export type Slug = {
-  _type: 'slug';
-  current?: string;
-  source?: string;
 };
 
 export type FaqItemReference = {
@@ -466,6 +480,12 @@ export type SpeciesPage = {
   category?: 'domestic-hardwood' | 'imported-hardwood' | 'softwood' | 'specialty';
   primaryKeyword?: string;
   featuredOnHome?: boolean;
+  heroImage?: ImageWithAlt;
+  gallery?: Array<
+    {
+      _key: string;
+    } & ImageWithAlt
+  >;
   hero?: {
     h1?: string;
     subhead?: string;
@@ -645,6 +665,15 @@ export type SanityImageHotspot = {
   width?: number;
 };
 
+export type MediaTag = {
+  _id: string;
+  _type: 'media.tag';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: Slug;
+};
+
 export type SanityImagePaletteSwatch = {
   _type: 'sanity.imagePaletteSwatch';
   background?: string;
@@ -758,9 +787,10 @@ export type AllSanitySchemaTypes =
   | CtaBlock
   | SanityImageAssetReference
   | ImageWithAlt
+  | Article
+  | Slug
   | FaqItem
   | Industry
-  | Slug
   | FaqItemReference
   | DeliveryPage
   | QuotePage
@@ -773,6 +803,7 @@ export type AllSanitySchemaTypes =
   | SiteSettings
   | SanityImageCrop
   | SanityImageHotspot
+  | MediaTag
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions

@@ -10,6 +10,7 @@ import { speciesPage } from './speciesPage';
 import { productPage } from './productPage';
 import { industry } from './industry';
 import { faqItem } from './faqItem';
+import { article } from './article';
 
 // Object types
 import { imageWithAlt } from './objects/imageWithAlt';
@@ -37,6 +38,7 @@ export const schemaTypes = [
   productPage,
   industry,
   faqItem,
+  article,
 
   // Object types
   imageWithAlt,

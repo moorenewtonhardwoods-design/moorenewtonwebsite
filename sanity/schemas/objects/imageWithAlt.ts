@@ -18,8 +18,13 @@ export const imageWithAlt = defineType({
       name: 'alt',
       title: 'Alt Text',
       type: 'string',
-      description: 'Describe the image for screen readers and SEO',
-      validation: (rule) => rule.required().error('Alt text is required for accessibility'),
+      description: 'Describe the image for screen readers and SEO (max 125 characters)',
+      validation: (rule) =>
+        rule
+          .required()
+          .error('Alt text is required for accessibility')
+          .max(125)
+          .warning('Alt text should be under 125 characters for best accessibility'),
     }),
     defineField({
       name: 'caption',

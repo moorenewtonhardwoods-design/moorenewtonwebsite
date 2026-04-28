@@ -35,9 +35,24 @@ interface ResolvedRelatedSpecies {
   descriptionOverride?: string;
 }
 
-interface ResolvedSpeciesPage extends Omit<SpeciesPage, 'faqs' | 'relatedSpecies'> {
+interface ResolvedImage {
+  asset?: {
+    _id: string;
+    url: string;
+    metadata?: {
+      dimensions?: { width: number; height: number };
+      lqip?: string;
+    };
+  };
+  alt?: string;
+  caption?: string;
+}
+
+interface ResolvedSpeciesPage extends Omit<SpeciesPage, 'faqs' | 'relatedSpecies' | 'heroImage' | 'gallery'> {
   faqs?: ResolvedFaq[];
   relatedSpecies?: ResolvedRelatedSpecies[];
+  heroImage?: ResolvedImage;
+  gallery?: ResolvedImage[];
 }
 
 interface PageProps {
@@ -256,9 +271,11 @@ export default async function SpeciesDetailPage({ params }: PageProps) {
   const faqs = species.faqs ?? [];
   const faqSchema = buildFAQPageSchema(faqs as unknown as FaqItem[]);
 
-  const heroImageUrl = species.seo?.ogImage?.asset
-    ? urlFor(species.seo.ogImage.asset)?.width(1200).height(630).url()
-    : null;
+  const heroImageUrl = species.heroImage?.asset?.url
+    ?? (species.seo?.ogImage?.asset
+      ? urlFor(species.seo.ogImage.asset)?.width(1200).height(630).url()
+      : null);
+  const heroImageAlt = species.heroImage?.alt ?? `${species.title} lumber grain pattern`;
 
   return (
     <>
@@ -278,7 +295,7 @@ export default async function SpeciesDetailPage({ params }: PageProps) {
           <div className="absolute inset-0">
             <Image
               src={heroImageUrl}
-              alt={`${species.title} lumber grain pattern`}
+              alt={heroImageAlt}
               fill
               priority
               sizes="100vw"
@@ -286,7 +303,7 @@ export default async function SpeciesDetailPage({ params }: PageProps) {
             />
           </div>
         )}
-        <div className="relative z-10 max-w-4xl mx-auto px-6">
+        <div className="relative z-10 max-w-6xl mx-auto px-6">
           <nav className="mb-8" aria-label="Breadcrumb">
             <ol className="flex items-center gap-2 text-sm text-body/70">
               <li>
@@ -305,13 +322,66 @@ export default async function SpeciesDetailPage({ params }: PageProps) {
             </ol>
           </nav>
 
-          <H1 className="mb-4">{species.hero?.h1 ?? species.title}</H1>
-          {species.hero?.subhead && <Lead className="mb-6">{species.hero.subhead}</Lead>}
-          {species.hero?.leadParagraph && (
-            <PortableText value={species.hero.leadParagraph} className="max-w-3xl" />
-          )}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            <div>
+              <H1 className="mb-4">{species.hero?.h1 ?? species.title}</H1>
+              {species.hero?.subhead && <Lead className="mb-6">{species.hero.subhead}</Lead>}
+              {species.hero?.leadParagraph && (
+                <PortableText value={species.hero.leadParagraph} className="max-w-3xl" />
+              )}
+            </div>
+            {species.heroImage?.asset?.url && (
+              <div className="relative aspect-square bg-canvas overflow-hidden">
+                <Image
+                  src={species.heroImage.asset.url}
+                  alt={species.heroImage.alt ?? `${species.title} face`}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+                {species.heroImage.caption && (
+                  <span className="absolute bottom-0 left-0 right-0 bg-emphasis/80 text-canvas text-sm px-4 py-2">
+                    {species.heroImage.caption}
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </section>
+
+      {/* Gallery - Alternate Cuts */}
+      {species.gallery && species.gallery.length > 0 && (
+        <section className="py-12 md:py-16 bg-canvas">
+          <div className="max-w-6xl mx-auto px-6">
+            <Eyebrow className="mb-4">Veneer Cuts</Eyebrow>
+            <H2 className="mb-8">Available Cuts</H2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+              {species.gallery.map((img, idx) => (
+                <div key={img.asset?._id ?? idx} className="group">
+                  <div className="relative aspect-square bg-surface overflow-hidden">
+                    {img.asset?.url && (
+                      <Image
+                        src={img.asset.url}
+                        alt={img.alt ?? `${species.title} alternate cut`}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        className="object-cover"
+                      />
+                    )}
+                  </div>
+                  {img.caption && (
+                    <p className="mt-2 text-sm font-display tracking-wide uppercase text-emphasis">
+                      {img.caption}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Specs at a Glance */}
       {species.specsAtAGlance && species.specsAtAGlance.length > 0 && (

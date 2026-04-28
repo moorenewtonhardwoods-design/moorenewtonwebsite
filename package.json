@@ -13,7 +13,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
-    "sanity:typegen": "sanity schema extract --path=sanity/schema.json && sanity typegen generate --schema=sanity/schema.json --output=sanity/types.generated.ts"
+    "sanity:typegen": "sanity schema extract --path=sanity/schema.json && sanity typegen generate",
+    "wire-swatches": "tsx scripts/wire-species-swatches.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -28,6 +29,7 @@
     "react-dom": "19.2.4",
     "react-hook-form": "^7.74.0",
     "sanity": "^5.22.0",
+    "sanity-plugin-media": "^4.2.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
@@ -42,6 +44,7 @@
     "eslint-config-next": "16.2.4",
     "prettier": "^3.8.3",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }

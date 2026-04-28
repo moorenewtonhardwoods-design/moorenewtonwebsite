@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { H2, H3, Eyebrow, Body } from '@/components/Typography';
-import { PageHero, FAQ, FinalCTA } from '@/components/sections';
+import { PageHero, FAQ, FinalCTA, FaceSpeciesGallery } from '@/components/sections';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { JsonLd, buildBreadcrumbListSchema, buildSimpleFAQPageSchema } from '@/lib/seo/schema';
+import { getFaceSpeciesSwatches } from '@/lib/sanity/queries';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Hardwood Plywood Bay Area | HPVA-Graded | Moore Newton',
@@ -89,7 +90,9 @@ const grades = [
   { code: 'Shop-grade', description: 'Factory seconds. Minor factory damage or defect (edge chips, surface marks, small patches) with 80%+ of the panel usable. The value play for builders that can cut around defects; priced well below graded stock.' },
 ];
 
-export default function HardwoodPlywoodPage() {
+export default async function HardwoodPlywoodPage() {
+  const swatches = await getFaceSpeciesSwatches();
+
   return (
     <>
       <JsonLd
@@ -358,6 +361,9 @@ export default function HardwoodPlywoodPage() {
           </div>
         </div>
       </section>
+
+      {/* Face Species Gallery */}
+      {swatches.length > 0 && <FaceSpeciesGallery swatches={swatches} />}
 
       {/* FAQ */}
       <FAQ heading="Frequently Asked Questions" items={faqItems} />
