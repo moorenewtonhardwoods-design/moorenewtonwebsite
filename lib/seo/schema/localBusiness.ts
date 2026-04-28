@@ -1,6 +1,5 @@
 import type { SiteSettings } from '@/sanity/types.generated';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.moorenewton.com';
+import { SITE_URL } from '../siteUrl';
 
 export interface LocalBusinessSchema {
   '@context': 'https://schema.org';

@@ -1,6 +1,5 @@
 import type { SiteSettings } from '@/sanity/types.generated';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.moorenewton.com';
+import { SITE_URL } from '../siteUrl';
 
 export interface WebSiteSchema {
   '@context': 'https://schema.org';
@@ -10,7 +9,7 @@ export interface WebSiteSchema {
   description?: string;
 }
 
-export function buildWebSiteSchema(settings: SiteSettings): WebSiteSchema {
+export function buildWebSiteSchema(settings: Partial<SiteSettings>): WebSiteSchema {
   const schema: WebSiteSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',

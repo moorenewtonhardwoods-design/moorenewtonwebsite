@@ -1,6 +1,5 @@
 import type { SiteSettings } from '@/sanity/types.generated';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.moorenewton.com';
+import { SITE_URL } from '../siteUrl';
 
 export interface LumberStoreSchema {
   '@context': 'https://schema.org';
@@ -37,7 +36,7 @@ const DAY_MAP: Record<string, string> = {
   sunday: 'Sunday',
 };
 
-export function buildLumberStoreSchema(settings: SiteSettings): LumberStoreSchema {
+export function buildLumberStoreSchema(settings: Partial<SiteSettings>): LumberStoreSchema {
   const schema: LumberStoreSchema = {
     '@context': 'https://schema.org',
     '@type': 'Store',

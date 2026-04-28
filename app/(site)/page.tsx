@@ -122,13 +122,9 @@ export default async function HomePage() {
 
   return (
     <>
-      {siteSettings && (
-        <>
-          <JsonLd data={buildLumberStoreSchema(siteSettings)} />
-          <JsonLd data={buildOrganizationSchema(siteSettings)} />
-          <JsonLd data={buildWebSiteSchema(siteSettings)} />
-        </>
-      )}
+      <JsonLd data={buildLumberStoreSchema(siteSettings ?? {})} />
+      <JsonLd data={buildOrganizationSchema(siteSettings ?? {})} />
+      <JsonLd data={buildWebSiteSchema(siteSettings ?? {})} />
 
       {/* 1. Hero */}
       <section className="relative min-h-[80vh] flex items-center justify-center bg-surface">

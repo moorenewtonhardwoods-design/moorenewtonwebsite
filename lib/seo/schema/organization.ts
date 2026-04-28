@@ -1,6 +1,5 @@
 import type { SiteSettings } from '@/sanity/types.generated';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.moorenewton.com';
+import { SITE_URL } from '../siteUrl';
 
 export interface OrganizationSchema {
   '@context': 'https://schema.org';
@@ -22,7 +21,7 @@ export interface OrganizationSchema {
   sameAs?: string[];
 }
 
-export function buildOrganizationSchema(settings: SiteSettings): OrganizationSchema {
+export function buildOrganizationSchema(settings: Partial<SiteSettings>): OrganizationSchema {
   const schema: OrganizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',

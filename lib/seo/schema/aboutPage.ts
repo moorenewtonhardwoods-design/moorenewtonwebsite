@@ -1,4 +1,4 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.moorenewton.com';
+import { SITE_URL } from '../siteUrl';
 
 export interface AboutPageSchema {
   '@context': 'https://schema.org';

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
+import { SITE_URL } from './siteUrl';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.moorenewton.com';
-const DEFAULT_OG_IMAGE = `${SITE_URL}/og/default.svg`;
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og/default.png`;
 
 export interface BuildMetadataOptions {
   title: string;
