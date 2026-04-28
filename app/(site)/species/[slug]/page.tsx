@@ -37,11 +37,13 @@ interface ResolvedRelatedSpecies {
 
 interface ResolvedImage {
   asset?: {
-    _id: string;
-    url: string;
-    metadata?: {
-      dimensions?: { width: number; height: number };
-      lqip?: string;
+    asset?: {
+      _id: string;
+      url: string;
+      metadata?: {
+        dimensions?: { width: number; height: number };
+        lqip?: string;
+      };
     };
   };
   alt?: string;
@@ -271,7 +273,7 @@ export default async function SpeciesDetailPage({ params }: PageProps) {
   const faqs = species.faqs ?? [];
   const faqSchema = buildFAQPageSchema(faqs as unknown as FaqItem[]);
 
-  const heroImageUrl = species.heroImage?.asset?.url
+  const heroImageUrl = species.heroImage?.asset?.asset?.url
     ?? (species.seo?.ogImage?.asset
       ? urlFor(species.seo.ogImage.asset)?.width(1200).height(630).url()
       : null);
@@ -330,10 +332,10 @@ export default async function SpeciesDetailPage({ params }: PageProps) {
                 <PortableText value={species.hero.leadParagraph} className="max-w-3xl" />
               )}
             </div>
-            {species.heroImage?.asset?.url && (
+            {species.heroImage?.asset?.asset?.url && (
               <div className="relative aspect-square bg-canvas overflow-hidden">
                 <Image
-                  src={species.heroImage.asset.url}
+                  src={species.heroImage.asset.asset.url}
                   alt={species.heroImage.alt ?? `${species.title} face`}
                   fill
                   priority
@@ -359,11 +361,11 @@ export default async function SpeciesDetailPage({ params }: PageProps) {
             <H2 className="mb-8">Available Cuts</H2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
               {species.gallery.map((img, idx) => (
-                <div key={img.asset?._id ?? idx} className="group">
+                <div key={img.asset?.asset?._id ?? idx} className="group">
                   <div className="relative aspect-square bg-surface overflow-hidden">
-                    {img.asset?.url && (
+                    {img.asset?.asset?.url && (
                       <Image
-                        src={img.asset.url}
+                        src={img.asset.asset.url}
                         alt={img.alt ?? `${species.title} alternate cut`}
                         fill
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"

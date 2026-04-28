@@ -39,7 +39,9 @@ const ctaFragment = /* groq */ `
 `;
 
 const imageWithAltFragment = /* groq */ `
-  asset-> { _id, url, metadata { dimensions, lqip } },
+  asset {
+    asset-> { _id, url, metadata { dimensions, lqip } }
+  },
   alt,
   caption
 `;
