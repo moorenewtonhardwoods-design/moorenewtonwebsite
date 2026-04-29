@@ -1,6 +1,11 @@
 import { sanityFetch } from '@/lib/sanity/fetch';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.moorenewton.com';
+function ensureProtocol(url: string): string {
+  if (url.startsWith('https://') || url.startsWith('http://')) return url;
+  return `https://${url}`;
+}
+
+const SITE_URL = ensureProtocol(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.moorenewton.com');
 
 interface SitemapEntry {
   slug: string;
