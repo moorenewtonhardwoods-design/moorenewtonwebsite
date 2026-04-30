@@ -4,6 +4,7 @@ import { H2, Eyebrow, Body } from '@/components/Typography';
 import { PageHero, ProductCard, FinalCTA } from '@/components/sections';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { JsonLd, buildBreadcrumbListSchema } from '@/lib/seo/schema';
+import { SITE_URL } from '@/lib/seo/siteUrl';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Hardwood Products | Moore Newton | San Leandro',
@@ -73,6 +74,21 @@ export default function ProductsPage() {
           { name: 'Products', path: '/products' },
         ])}
       />
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: 'Hardwood Products',
+          description: 'Hardwood lumber, plywood, composite products, and custom millwork from Moore Newton Hardwoods in San Leandro, CA.',
+          numberOfItems: productCategories.length,
+          itemListElement: productCategories.map((category, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: category.title,
+            url: `${SITE_URL}${category.href}`,
+          })),
+        }}
+      />
 
       {/* Hero */}
       <PageHero
@@ -98,6 +114,29 @@ export default function ProductsPage() {
             softwoods, composite panels, and a full-service commercial millwork facility under the
             same roof. Most orders are stocked and shipping the same or next day. Custom millwork
             runs 5–7 business days on standard turnaround.
+          </Body>
+          <Body className="mt-4">
+            <strong>Popular species:</strong>{' '}
+            <Link href="/species/white-oak" className="text-accent hover:text-emphasis underline">
+              White Oak
+            </Link>
+            {', '}
+            <Link href="/species/walnut" className="text-accent hover:text-emphasis underline">
+              Black Walnut
+            </Link>
+            {', '}
+            <Link href="/species/hard-maple" className="text-accent hover:text-emphasis underline">
+              Hard Maple
+            </Link>
+            {', '}
+            <Link href="/species/cherry" className="text-accent hover:text-emphasis underline">
+              Cherry
+            </Link>
+            {', '}
+            <Link href="/species/red-oak" className="text-accent hover:text-emphasis underline">
+              Red Oak
+            </Link>
+            .
           </Body>
         </div>
       </section>

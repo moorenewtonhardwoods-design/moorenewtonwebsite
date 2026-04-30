@@ -15,7 +15,7 @@ import type { FeaturedSpecies } from '@/lib/sanity/queries';
 export const metadata: Metadata = buildMetadata({
   title: 'Hardwood Lumber Bay Area | Moore Newton | San Leandro',
   description:
-    'Bay Area hardwood distributor in San Leandro. 40+ species, NHLA-graded lumber, HPVA-graded plywood, commercial millwork. Next-day delivery from $500, no fee at $750+.',
+    'Bay Area hardwood distributor in San Leandro. 40+ species, NHLA-graded lumber, HPVA-graded plywood, commercial millwork. Next-day delivery, free at $750+.',
   path: '/',
 });
 

@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react';
 import Link from 'next/link';
 
 function InstagramIcon({ className }: { className?: string }) {
@@ -68,15 +69,17 @@ const siteLinks = [
   { href: '/quote', label: 'Request a Quote' },
 ];
 
-const legalLinks = [
-  { href: '#', label: 'Privacy Policy' }, // TODO: Create privacy policy page
-  { href: '#', label: 'Terms of Service' }, // TODO: Create terms page
+const legalLinks: Array<{ href: string; label: string }> = [
+  // Uncomment when pages are created:
+  // { href: '/privacy', label: 'Privacy Policy' },
+  // { href: '/terms', label: 'Terms of Service' },
 ];
 
-const socialLinks = [
-  { href: '#', label: 'Instagram', icon: InstagramIcon }, // TODO: Add real Instagram URL
-  { href: '#', label: 'Facebook', icon: FacebookIcon }, // TODO: Add real Facebook URL
-  { href: '#', label: 'LinkedIn', icon: LinkedInIcon }, // TODO: Add real LinkedIn URL
+const socialLinks: Array<{ href: string; label: string; icon: ComponentType<{ className?: string }> }> = [
+  // Uncomment when social accounts are ready:
+  // { href: 'https://instagram.com/moorenewtonhardwoods', label: 'Instagram', icon: InstagramIcon },
+  // { href: 'https://facebook.com/moorenewtonhardwoods', label: 'Facebook', icon: FacebookIcon },
+  // { href: 'https://linkedin.com/company/moore-newton-hardwoods', label: 'LinkedIn', icon: LinkedInIcon },
 ];
 
 export function Footer() {
@@ -132,48 +135,52 @@ export function Footer() {
             </nav>
           </div>
 
-          {/* Legal Links */}
-          <div>
-            <h2 className="font-display text-sm tracking-headline uppercase text-emphasis mb-6">
-              Legal
-            </h2>
-            <nav aria-label="Footer legal links">
-              <ul className="space-y-3">
-                {legalLinks.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="font-body text-sm text-body hover:text-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
-
-          {/* Social Links */}
-          <div>
-            <h2 className="font-display text-sm tracking-headline uppercase text-emphasis mb-6">
-              Follow Us
-            </h2>
-            <div className="flex gap-4">
-              {socialLinks.map((link) => {
-                const Icon = link.icon;
-                return (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="p-2 text-body hover:text-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-                    aria-label={link.label}
-                  >
-                    <Icon className="w-5 h-5" />
-                  </a>
-                );
-              })}
+          {/* Legal Links - hidden until pages are created */}
+          {legalLinks.length > 0 && (
+            <div>
+              <h2 className="font-display text-sm tracking-headline uppercase text-emphasis mb-6">
+                Legal
+              </h2>
+              <nav aria-label="Footer legal links">
+                <ul className="space-y-3">
+                  {legalLinks.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="font-body text-sm text-body hover:text-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
             </div>
-          </div>
+          )}
+
+          {/* Social Links - hidden until social accounts are ready */}
+          {socialLinks.length > 0 && (
+            <div>
+              <h2 className="font-display text-sm tracking-headline uppercase text-emphasis mb-6">
+                Follow Us
+              </h2>
+              <div className="flex gap-4">
+                {socialLinks.map((link) => {
+                  const Icon = link.icon;
+                  return (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      className="p-2 text-body hover:text-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                      aria-label={link.label}
+                    >
+                      <Icon className="w-5 h-5" />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Bottom bar */}
