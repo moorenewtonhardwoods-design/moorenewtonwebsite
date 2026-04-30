@@ -44,15 +44,22 @@ function parseSwatchFilename(filename: string): {
   const base = filename.replace(/\.[^.]+$/, '').toLowerCase();
 
   const cutPatterns = [
+    { pattern: '-plainsliced', label: 'Plain-sliced' },
     { pattern: '-plain-sliced', label: 'Plain-sliced' },
+    { pattern: '-quartered', label: 'Quartersliced' },
     { pattern: '-quartersliced', label: 'Quartersliced' },
     { pattern: '-quartersawn', label: 'Quartersawn' },
     { pattern: '-rift', label: 'Rift' },
     { pattern: '-rotary', label: 'Rotary' },
     { pattern: '-natural-rotary', label: 'Rotary' },
+    { pattern: '-birsdeye', label: 'Birdseye' },
     { pattern: '-birdseye', label: 'Birdseye' },
+    { pattern: '-soft-curly', label: 'Curly' },
     { pattern: '-curly', label: 'Curly' },
     { pattern: '-vg', label: 'Vertical Grain' },
+    { pattern: '-clear', label: 'Clear' },
+    { pattern: '-knotty', label: 'Knotty' },
+    { pattern: '-aromatic', label: 'Aromatic' },
   ];
 
   let cut = '';
@@ -69,35 +76,53 @@ function parseSwatchFilename(filename: string): {
   const speciesNames: Record<string, string> = {
     'white-oak': 'White Oak',
     'red-oak': 'Red Oak',
-    'quartersawn-white-oak': 'Quartersawn White Oak',
-    'rift-white-oak': 'Rift White Oak',
     cherry: 'Cherry',
-    'black-walnut': 'Black Walnut',
-    'hard-maple': 'Hard Maple',
-    'soft-maple': 'Soft Maple',
-    'african-mahogany': 'African Mahogany',
+    walnut: 'Black Walnut',
+    maple: 'Hard Maple',
+    'maple-soft': 'Soft Maple',
+    'mahogany-khaya': 'African Mahogany',
     birch: 'Birch',
-    'douglas-fir': 'Douglas Fir',
+    douglasfir: 'Douglas Fir',
     hickory: 'Hickory',
     poplar: 'Poplar',
     sapele: 'Sapele',
     teak: 'Teak',
-    alder: 'Alder',
-    ash: 'Ash',
-    'honduran-mahogany': 'Honduran Mahogany',
-    'western-red-cedar': 'Western Red Cedar',
+    cedar: 'Western Red Cedar',
+    pine: 'Pine',
+    jatoba: 'Jatoba',
+    rosewood: 'Rosewood',
     lacewood: 'Lacewood',
     padauk: 'Padauk',
     wenge: 'Wenge',
     zebrawood: 'Zebrawood',
   };
 
-  const plywoodOnly = ['lacewood', 'padauk', 'wenge', 'zebrawood'];
-  const noSpeciesPage = ['alder', 'ash', 'honduran-mahogany', 'western-red-cedar'];
+  const speciesSlugs: Record<string, string | null> = {
+    'white-oak': 'white-oak',
+    'red-oak': 'red-oak',
+    cherry: 'cherry',
+    walnut: 'walnut',
+    maple: 'hard-maple',
+    'maple-soft': 'soft-maple',
+    'mahogany-khaya': 'african-mahogany',
+    birch: 'birch',
+    douglasfir: 'douglas-fir',
+    hickory: 'hickory',
+    poplar: 'poplar',
+    sapele: 'sapele',
+    teak: 'teak',
+    cedar: null,
+    pine: null,
+    jatoba: null,
+    rosewood: null,
+    lacewood: null,
+    padauk: null,
+    wenge: null,
+    zebrawood: null,
+  };
 
   const speciesName = speciesNames[speciesBase] || speciesBase.replace(/-/g, ' ');
-  const slug =
-    plywoodOnly.includes(speciesBase) || noSpeciesPage.includes(speciesBase) ? null : speciesBase;
+  const slug = speciesSlugs[speciesBase] ?? null;
 
   return { speciesName, cut, slug };
 }

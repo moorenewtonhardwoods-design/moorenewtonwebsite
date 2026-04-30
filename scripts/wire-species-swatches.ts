@@ -22,14 +22,16 @@ const client = createClient({
 
 // Hero image mappings: species slug -> asset filename (without extension)
 // Based on actual uploaded filenames in Sanity and species slugs
+// Species with no swatch yet: alder, ash, honduran-mahogany, western-red-cedar
 const heroImageMappings: Record<string, string> = {
+  'white-oak': 'white-oak-plainsliced', // plain-sawn white oak (if document exists)
   'red-oak': 'red-oak-plainsliced',
   'quartersawn-white-oak': 'white-oak-quartered',
   'white-oak-rift': 'white-oak-rift',
   'cherry': 'cherry-plainsliced',
-  'walnut': 'walnut-plainsliced',
+  'walnut': 'walnut-plainsliced', // slug is 'walnut', title is 'Black Walnut'
   'hard-maple': 'maple-plainsliced',
-  'soft-maple': 'maple-soft-curly',
+  'soft-maple': 'maple-soft-curly', // only soft-maple swatch we have
   'african-mahogany': 'mahogany-khaya-plainsliced',
   'birch': 'birch-natural-rotary',
   'douglas-fir': 'douglasfir-vg',
@@ -37,91 +39,96 @@ const heroImageMappings: Record<string, string> = {
   'poplar': 'poplar',
   'sapele': 'sapele',
   'teak': 'teak',
+  'aromatic-tennessee-cedar': 'cedar-aromatic',
+  'jatoba': 'jatoba',
+  'sugar-pine': 'pine-clear',
+  'ponderosa-pine': 'pine-knotty',
+  // No swatches for: alder, ash, honduran-mahogany, western-red-cedar
 };
 
 // Gallery mappings: species slug -> array of { filename, caption }
 // Based on actual uploaded filenames in Sanity
+// Note: white-oak gallery is empty because quartersawn and rift are separate species pages
 const galleryMappings: Record<string, Array<{ filename: string; caption: string }>> = {
-  'white-oak': [
-    { filename: 'white-oak-quartered', caption: 'Quartersawn' },
-    { filename: 'white-oak-rift', caption: 'Rift' },
-  ],
+  // white-oak: no gallery (quartersawn and rift have their own species pages)
   'red-oak': [
-    { filename: 'red-oak-quartered', caption: 'Quartersawn' },
+    { filename: 'red-oak-quartered', caption: 'Quartersliced' },
     { filename: 'red-oak-rift', caption: 'Rift' },
   ],
   'cherry': [
-    { filename: 'cherry-quartered', caption: 'Quartersawn' },
+    { filename: 'cherry-quartered', caption: 'Quartersliced' },
   ],
   'walnut': [
-    { filename: 'walnut-quartered', caption: 'Quartersawn' },
+    { filename: 'walnut-quartered', caption: 'Quartersliced' },
   ],
   'hard-maple': [
-    { filename: 'maple-quartered', caption: 'Quartersawn' },
+    { filename: 'maple-quartered', caption: 'Quartersliced' },
     { filename: 'maple-rotary', caption: 'Rotary' },
-    { filename: 'maple-birsdeye', caption: 'Birdseye' },
+    { filename: 'maple-birsdeye', caption: 'Birdseye' }, // Note: typo in uploaded filename
   ],
   'african-mahogany': [
-    { filename: 'mahogany-khaya-quartered', caption: 'Quartersawn' },
+    { filename: 'mahogany-khaya-quartered', caption: 'Quartersliced' },
   ],
   'teak': [
-    { filename: 'teak-quartered', caption: 'Quartersawn' },
+    { filename: 'teak-quartered', caption: 'Quartersliced' },
   ],
 };
 
 // Alt text patterns based on species and cut
 // Format: "<Species name> <cut> face showing <grain/color description>"
+// Descriptions pulled verbatim from Copy/Species - *.md Grain & Appearance sections
 // Keys match actual uploaded filenames in Sanity
 const altTextMappings: Record<string, string> = {
-  // White Oak
-  'white-oak-plainsliced': 'White oak plain-sliced face showing cathedral grain with golden-tan heartwood',
-  'white-oak-quartered': 'Quartersawn white oak face showing prominent ray fleck figure with straight grain',
-  'white-oak-rift': 'Rift white oak face showing tight straight grain with minimal ray fleck',
-  // Red Oak
-  'red-oak-plainsliced': 'Red oak plain-sliced face showing prominent cathedral grain with pinkish-red tones',
-  'red-oak-quartered': 'Red oak quartersawn face showing straight grain with ray fleck figure',
-  'red-oak-rift': 'Red oak rift face showing tight parallel grain lines',
-  // Cherry
-  'cherry-plainsliced': 'Cherry plain-sliced face showing fine grain with warm reddish-brown heartwood',
-  'cherry-quartered': 'Cherry quartersawn face showing straight grain with subtle figure',
-  // Black Walnut
-  'walnut-plainsliced': 'Black walnut plain-sliced face showing rich chocolate-brown heartwood with flowing grain',
-  'walnut-quartered': 'Black walnut quartersawn face showing straight grain with deep brown tones',
-  // Hard Maple
-  'maple-plainsliced': 'Hard maple plain-sliced face showing fine closed grain with creamy white color',
-  'maple-quartered': 'Hard maple quartersawn face showing straight tight grain',
-  'maple-rotary': 'Hard maple rotary face showing wide consistent grain pattern',
+  // White Oak — ring-porous with closed heartwood, pale tan to warm medium brown with olive undertones
+  'white-oak-plainsliced': 'White oak plain-sliced face showing bold cathedral grain with warm medium brown heartwood',
+  'white-oak-quartered': 'Quartersawn white oak face showing medullary-ray fleck figure with straight grain',
+  'white-oak-rift': 'Rift white oak face showing tight straight grain with minimal cathedral figure',
+  // Red Oak — ring-porous with open pores throughout, pale pink to warm reddish-brown
+  'red-oak-plainsliced': 'Red oak plain-sliced face showing bold cathedral grain with warm wheat-brown heartwood',
+  'red-oak-quartered': 'Red oak quartersliced face showing straight grain with subtle ray fleck figure',
+  'red-oak-rift': 'Red oak rift face showing tight parallel grain with consistent color',
+  // Cherry — diffuse-porous, fine uniform texture, pale pink-tan aging to reddish-brown
+  'cherry-plainsliced': 'Cherry plain-sliced face showing fine uniform grain with pale pink-tan heartwood',
+  'cherry-quartered': 'Cherry quartersliced face showing linear straight grain with subtle ray figure',
+  // Black Walnut — diffuse-porous, fine uniform texture, chocolate-brown heartwood
+  'walnut-plainsliced': 'Black walnut plain-sliced face showing fine uniform grain with rich chocolate-brown heartwood',
+  'walnut-quartered': 'Black walnut quartersliced face showing linear straight grain with deep brown tones',
+  // Hard Maple — diffuse-porous, finest uniform texture, cream-white sapwood
+  'maple-plainsliced': 'Hard maple plain-sliced face showing fine closed grain with cream-white color',
+  'maple-quartered': 'Hard maple quartersliced face showing linear grain with tight uniform texture',
+  'maple-rotary': 'Hard maple rotary face showing wide consistent grain with pale uniform color',
   'maple-birsdeye': 'Hard maple birdseye face showing distinctive eye-shaped figure throughout',
-  // Soft Maple
+  // Soft Maple — lighter weight, easier to work, figured sorts available
   'maple-soft-curly': 'Soft maple curly face showing wavy chatoyant figure with light tan color',
-  // African Mahogany (Khaya)
+  // African Mahogany (Khaya) — interlocked grain, reddish-brown with ribbon stripe on quarter
   'mahogany-khaya-plainsliced': 'African mahogany plain-sliced face showing interlocked grain with reddish-brown color',
-  'mahogany-khaya-quartered': 'African mahogany quartersawn face showing ribbon stripe figure',
-  // Birch
+  'mahogany-khaya-quartered': 'African mahogany quartersliced face showing ribbon stripe figure',
+  // Birch — diffuse-porous, uniform light tan, rotary standard for plywood
   'birch-natural-rotary': 'Birch natural rotary face showing uniform light tan color with subtle grain',
-  // Douglas Fir
+  // Douglas Fir — softwood, prominent growth rings, vertical grain for stability
   'douglasfir-vg': 'Douglas fir vertical grain face showing tight parallel growth rings',
-  // Hickory
-  'hickory': 'Hickory face showing bold grain pattern with contrasting heartwood and sapwood',
-  // Poplar
-  'poplar': 'Poplar face showing straight grain with greenish-tan heartwood',
-  // Sapele
+  // Hickory — ring-porous, dramatic sapwood/heartwood contrast
+  'hickory': 'Hickory face showing bold grain with dramatic heartwood and sapwood contrast',
+  // Poplar — diffuse-porous, straight grain, greenish-tan heartwood
+  'poplar': 'Poplar face showing straight grain with characteristic greenish-tan heartwood',
+  // Sapele — interlocked grain producing ribbon stripe, reddish-brown
   'sapele': 'Sapele face showing interlocked grain with ribbon stripe and reddish-brown color',
-  // Teak
-  'teak': 'Teak face showing straight grain with golden-brown color and natural oils',
-  'teak-quartered': 'Teak quartersawn face showing tight straight grain with golden tones',
-  // Cedar
-  'cedar-aromatic': 'Aromatic cedar face showing distinctive reddish-brown color with tight grain',
-  // Pine
-  'pine-clear': 'Clear pine face showing light color with minimal knots and straight grain',
-  'pine-knotty': 'Knotty pine face showing characteristic knot pattern with warm golden tones',
-  // Exotic species
-  'jatoba': 'Jatoba face showing rich reddish-brown color with interlocked grain',
-  'rosewood': 'Rosewood face showing deep purple-brown color with dramatic grain pattern',
-  // Plywood-only species
-  'lacewood': 'Lacewood face showing large distinctive ray fleck with silvery sheen',
-  'padauk': 'Padauk face showing vibrant orange-red color with interlocked grain',
-  'wenge': 'Wenge face showing dark brown color with fine black streaking',
+  // Teak — straight grain, golden-brown with natural oils
+  'teak': 'Teak face showing straight grain with golden-brown color',
+  'teak-quartered': 'Teak quartersliced face showing tight straight grain with golden tones',
+  // Plywood-only species (captions from Copy/Plywood Face Species — Captions.md)
+  'lacewood': 'Lacewood face showing distinctive lace-like ray fleck against pale pink-tan background',
+  'padauk': 'Padauk face showing blood-red color with straight to interlocked grain',
+  'wenge': 'Wenge face showing very dark brown color with darker striping and coarse open grain',
+  'zebrawood': 'Zebrawood face showing sharp dark-on-light striping with pale gold to medium brown',
+  // Aromatic Tennessee Cedar — diffuse-porous juniper, reddish-brown to purplish-red heartwood
+  'cedar-aromatic': 'Aromatic Tennessee Cedar face showing reddish-brown heartwood with creamy sapwood contrast and tight knots',
+  // Jatoba — diffuse-porous tropical hardwood, pale pink-tan aging to deep reddish-brown
+  'jatoba': 'Jatoba face showing warm reddish-brown color with interlocked grain and uniform texture',
+  // Sugar Pine — soft pattern-grade pine, creamy white to pale yellow-brown
+  'pine-clear': 'Sugar Pine face showing uniform pale cream color with straight fine grain',
+  // Ponderosa Pine — knotty Western pine, moderate latewood transition
+  'pine-knotty': 'Ponderosa Pine face showing tight character knots with pale yellow-brown color',
 };
 
 interface SanityAsset {

@@ -515,23 +515,20 @@ export async function getFaceSpeciesSwatches(): Promise<FaceSpeciesSwatch[]> {
     query: /* groq */ `*[_type == "sanity.imageAsset" && (
       originalFilename match "white-oak*" ||
       originalFilename match "red-oak*" ||
-      originalFilename match "quartersawn-white-oak*" ||
-      originalFilename match "rift-white-oak*" ||
       originalFilename match "cherry*" ||
-      originalFilename match "black-walnut*" ||
-      originalFilename match "hard-maple*" ||
-      originalFilename match "soft-maple*" ||
-      originalFilename match "african-mahogany*" ||
+      originalFilename match "walnut*" ||
+      originalFilename match "maple*" ||
+      originalFilename match "mahogany*" ||
       originalFilename match "birch*" ||
-      originalFilename match "douglas-fir*" ||
+      originalFilename match "douglasfir*" ||
       originalFilename match "hickory*" ||
       originalFilename match "poplar*" ||
       originalFilename match "sapele*" ||
       originalFilename match "teak*" ||
-      originalFilename match "alder*" ||
-      originalFilename match "ash*" ||
-      originalFilename match "honduran-mahogany*" ||
-      originalFilename match "western-red-cedar*" ||
+      originalFilename match "cedar*" ||
+      originalFilename match "pine*" ||
+      originalFilename match "jatoba*" ||
+      originalFilename match "rosewood*" ||
       originalFilename match "lacewood*" ||
       originalFilename match "padauk*" ||
       originalFilename match "wenge*" ||
@@ -544,6 +541,97 @@ export async function getFaceSpeciesSwatches(): Promise<FaceSpeciesSwatch[]> {
       title
     }`,
     tags: ['sanity:assets'],
+  });
+}
+
+// =============================================================================
+// Article Queries
+// =============================================================================
+
+export interface ArticleCard {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  publishedAt?: string;
+  seo?: {
+    description?: string;
+  };
+}
+
+export interface ArticleFull {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  publishedAt?: string;
+  heroImage?: {
+    asset?: {
+      asset?: {
+        _id: string;
+        url: string;
+        metadata?: {
+          dimensions?: { width: number; height: number };
+          lqip?: string;
+        };
+      };
+    };
+    alt?: string;
+    caption?: string;
+  };
+  body?: object[];
+  relatedSpecies?: Array<{
+    _id: string;
+    title?: string;
+    slug?: { current?: string };
+  }>;
+  seo?: {
+    title?: string;
+    description?: string;
+    noindex?: boolean;
+    canonicalOverride?: string;
+    ogImage?: object;
+  };
+}
+
+export async function getAllArticleSlugs(): Promise<Array<{ slug: string }>> {
+  return sanityFetch<Array<{ slug: string }>>({
+    query: /* groq */ `*[_type == "article" && defined(slug.current) && defined(publishedAt)] {
+      "slug": slug.current
+    }`,
+    tags: ['sanity:articles'],
+  });
+}
+
+export async function getAllArticles(): Promise<ArticleCard[]> {
+  return sanityFetch<ArticleCard[]>({
+    query: /* groq */ `*[_type == "article" && defined(publishedAt)] | order(publishedAt desc) {
+      _id,
+      title,
+      slug,
+      publishedAt,
+      seo { description }
+    }`,
+    tags: ['sanity:articles'],
+  });
+}
+
+export async function getArticleBySlug(slug: string): Promise<ArticleFull | null> {
+  return sanityFetchOrNull<ArticleFull>({
+    query: /* groq */ `*[_type == "article" && slug.current == $slug][0] {
+      _id,
+      title,
+      slug,
+      publishedAt,
+      heroImage { ${imageWithAltFragment} },
+      body,
+      relatedSpecies[]-> {
+        _id,
+        title,
+        slug
+      },
+      ${seoFragment}
+    }`,
+    params: { slug },
+    tags: ['sanity:articles', `sanity:article:${slug}`],
   });
 }
 

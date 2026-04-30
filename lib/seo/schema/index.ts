@@ -29,3 +29,6 @@ export type { LocalBusinessSchema } from './localBusiness';
 
 export { buildContactPointSchema } from './contactPoint';
 export type { ContactPointSchema } from './contactPoint';
+
+export { buildArticleSchema } from './article';
+export type { ArticleSchema, BuildArticleSchemaOptions } from './article';

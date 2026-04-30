@@ -329,11 +329,19 @@ export default async function SpeciesDetailPage({ params }: PageProps) {
               <H1 className="mb-4">{species.hero?.h1 ?? species.title}</H1>
               {species.hero?.subhead && <Lead className="mb-6">{species.hero.subhead}</Lead>}
               {species.hero?.leadParagraph && (
-                <PortableText value={species.hero.leadParagraph} className="max-w-3xl" />
+                <PortableText value={species.hero.leadParagraph} className="max-w-3xl mb-8" />
+              )}
+              {species.specsAtAGlance && species.specsAtAGlance.length > 0 && (
+                <div className="bg-canvas p-4 md:p-6">
+                  <h2 className="font-display text-sm tracking-label uppercase text-emphasis mb-4">
+                    Specs at a Glance
+                  </h2>
+                  <SpecsTable specs={species.specsAtAGlance} />
+                </div>
               )}
             </div>
             {species.heroImage?.asset?.asset?.url && (
-              <div className="relative aspect-square bg-canvas overflow-hidden">
+              <div className="order-first lg:order-none relative aspect-square bg-canvas overflow-hidden">
                 <Image
                   src={species.heroImage.asset.asset.url}
                   alt={species.heroImage.alt ?? `${species.title} face`}
@@ -385,18 +393,6 @@ export default async function SpeciesDetailPage({ params }: PageProps) {
         </section>
       )}
 
-      {/* Specs at a Glance */}
-      {species.specsAtAGlance && species.specsAtAGlance.length > 0 && (
-        <section className="py-16 md:py-20 bg-canvas">
-          <div className="max-w-4xl mx-auto px-6">
-            <Eyebrow className="mb-4">Specs at a Glance</Eyebrow>
-            <H2 className="mb-8">Technical Specifications</H2>
-            <div className="bg-surface p-6 md:p-8">
-              <SpecsTable specs={species.specsAtAGlance} />
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Grade & Availability */}
       <section className="py-16 md:py-20 bg-surface">

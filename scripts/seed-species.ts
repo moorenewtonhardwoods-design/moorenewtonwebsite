@@ -58,6 +58,10 @@ const SPECIES_FILES = [
   'Species - Soft Maple.md',
   'Species - Teak.md',
   'Species - Western Red Cedar.md',
+  'Species - Aromatic Tennessee Cedar.md',
+  'Species - Jatoba.md',
+  'Species - Sugar Pine.md',
+  'Species - Ponderosa Pine.md',
 ];
 
 const CATEGORY_MAP: Record<string, string> = {
@@ -80,8 +84,12 @@ const CATEGORY_MAP: Record<string, string> = {
   'honduran mahogany': 'imported-hardwood',
   sapele: 'imported-hardwood',
   teak: 'imported-hardwood',
+  jatoba: 'imported-hardwood',
   'douglas fir': 'softwood',
   'western red cedar': 'softwood',
+  'aromatic tennessee cedar': 'softwood',
+  'sugar pine': 'softwood',
+  'ponderosa pine': 'softwood',
 };
 
 const FEATURED_SPECIES = [
