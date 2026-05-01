@@ -247,7 +247,7 @@ function RelatedSpeciesCard({ species, descriptionOverride }: RelatedSpeciesCard
         {species.title}
       </H3>
       {species.botanicalName && (
-        <p className="text-sm italic text-body/70 mb-2 group-hover:text-canvas/70 transition-colors">
+        <p className="text-sm italic text-body/85 mb-2 group-hover:text-canvas/85 transition-colors">
           {species.botanicalName}
         </p>
       )}
@@ -258,6 +258,91 @@ function RelatedSpeciesCard({ species, descriptionOverride }: RelatedSpeciesCard
         {descriptionOverride ?? species.hero?.subhead}
       </Body>
     </Link>
+  );
+}
+
+const SPECIES_WITH_PLYWOOD_SWATCHES = new Set([
+  'white-oak',
+  'white-oak-rift',
+  'quartersawn-white-oak',
+  'red-oak',
+  'cherry',
+  'walnut',
+  'hard-maple',
+  'soft-maple',
+  'african-mahogany',
+  'honduran-mahogany',
+  'birch',
+  'douglas-fir',
+  'hickory',
+  'poplar',
+  'sapele',
+  'teak',
+  'western-red-cedar',
+  'aromatic-tennessee-cedar',
+  'sugar-pine',
+  'ponderosa-pine',
+  'jatoba',
+  'alder',
+  'ash',
+]);
+
+interface AvailableFormatsProps {
+  speciesTitle: string;
+  category: string;
+  slug: string;
+}
+
+function AvailableFormats({ speciesTitle, category, slug }: AvailableFormatsProps) {
+  const hasPlywoodSwatch = SPECIES_WITH_PLYWOOD_SWATCHES.has(slug);
+
+  const links: Array<{ href: string; title: string; description: string }> = [];
+
+  if (category === 'softwood') {
+    links.push({
+      href: '/products/softwood-lumber',
+      title: 'Softwood Lumber',
+      description: `${speciesTitle} lumber available in standard and custom dimensions. Kiln-dried and ready for delivery.`,
+    });
+  } else {
+    links.push({
+      href: '/products/hardwood-lumber',
+      title: 'Hardwood Lumber',
+      description: `${speciesTitle} lumber stocked in 4/4 through 8/4, FAS and Select grades. NHLA-graded, kiln-dried.`,
+    });
+
+    if (hasPlywoodSwatch) {
+      links.push({
+        href: '/products/hardwood-plywood',
+        title: 'Hardwood Plywood',
+        description: `${speciesTitle} veneer faces on Baltic birch, MDF, and particleboard cores. Multiple thicknesses available.`,
+      });
+    }
+  }
+
+  if (links.length === 0) return null;
+
+  return (
+    <section className="py-16 md:py-20 bg-canvas">
+      <div className="max-w-4xl mx-auto px-6">
+        <Eyebrow className="mb-4">Products</Eyebrow>
+        <H2 className="mb-6">Available Formats</H2>
+        <div className="space-y-6">
+          {links.map((link) => (
+            <div key={link.href} className="border-l-4 border-accent pl-6">
+              <Link
+                href={link.href}
+                className="group inline-block font-display text-lg tracking-wide uppercase text-emphasis hover:text-accent transition-colors mb-2"
+              >
+                {link.title}
+                <span className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+              </Link>
+              <Body className="text-body/85">{link.description}</Body>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -307,7 +392,7 @@ export default async function SpeciesDetailPage({ params }: PageProps) {
         )}
         <div className="relative z-10 max-w-6xl mx-auto px-6">
           <nav className="mb-8" aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-body/70">
+            <ol className="flex items-center gap-2 text-sm text-body/85">
               <li>
                 <Link href="/" className="hover:text-accent transition-colors">
                   Home
@@ -496,6 +581,13 @@ export default async function SpeciesDetailPage({ params }: PageProps) {
           </div>
         </section>
       )}
+
+      {/* Available Formats (product hub links) */}
+      <AvailableFormats
+        speciesTitle={species.title ?? 'This species'}
+        category={species.category ?? 'domestic-hardwood'}
+        slug={slug}
+      />
 
       {/* Related Species */}
       {species.relatedSpecies && species.relatedSpecies.length > 0 && (

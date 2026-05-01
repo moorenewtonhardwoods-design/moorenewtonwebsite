@@ -22,7 +22,7 @@ const components: PortableTextComponents = {
       </h4>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-accent pl-4 my-4 italic text-body/80">
+      <blockquote className="border-l-4 border-accent pl-4 my-4 italic text-body/85">
         {children}
       </blockquote>
     ),

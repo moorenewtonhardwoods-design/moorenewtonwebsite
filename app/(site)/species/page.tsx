@@ -49,7 +49,7 @@ function SpeciesCard({ species }: { species: SpeciesPage }) {
         {species.title}
       </H3>
       {species.botanicalName && (
-        <p className="text-sm italic text-body/70 mb-2 group-hover:text-canvas/70 transition-colors">
+        <p className="text-sm italic text-body/85 mb-2 group-hover:text-canvas/85 transition-colors">
           {species.botanicalName}
         </p>
       )}
@@ -77,7 +77,7 @@ export default async function SpeciesIndexPage() {
       <section className="py-20 md:py-28 bg-surface">
         <div className="max-w-4xl mx-auto px-6">
           <nav className="mb-8" aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-sm text-body/70">
+            <ol className="flex items-center gap-2 text-sm text-body/85">
               <li>
                 <Link href="/" className="hover:text-accent transition-colors">
                   Home

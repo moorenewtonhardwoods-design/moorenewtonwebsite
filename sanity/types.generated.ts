@@ -208,6 +208,11 @@ export type Article = {
   heroImage?: ImageWithAlt;
   publishedAt?: string;
   body?: BlockContent;
+  relatedSpecies?: Array<
+    {
+      _key: string;
+    } & SpeciesPageReference
+  >;
   seo?: SeoFields;
 };
 

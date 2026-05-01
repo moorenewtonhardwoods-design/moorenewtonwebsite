@@ -43,7 +43,7 @@ export default async function ArticlesPage() {
           </Body>
 
           {articles.length === 0 ? (
-            <Body className="text-body/70">No articles published yet. Check back soon.</Body>
+            <Body className="text-body/85">No articles published yet. Check back soon.</Body>
           ) : (
             <div className="space-y-8">
               {articles.map((article) => (
@@ -59,12 +59,12 @@ export default async function ArticlesPage() {
                       {article.title}
                     </H2>
                     {article.publishedAt && (
-                      <p className="text-sm text-body/60 mb-3">
+                      <p className="text-sm text-body/85 mb-3">
                         {formatDate(article.publishedAt)}
                       </p>
                     )}
                     {article.seo?.description && (
-                      <Body className="text-body/80">{article.seo.description}</Body>
+                      <Body className="text-body/85">{article.seo.description}</Body>
                     )}
                     <span className="inline-block mt-3 text-accent group-hover:text-emphasis transition-colors">
                       Read article →

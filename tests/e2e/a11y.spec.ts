@@ -1,15 +1,8 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-// TODO: Re-enable color-contrast checks after fixing design token contrast ratios
-// Known issues: #877961 on #ede6d8 (3.42:1), #8b6914/#f5f0e8 combos (4.48:1)
-// Target: 4.5:1 for normal text per WCAG 2.1 AA
-const EXCLUDED_RULES = ['color-contrast'];
-
 function buildAxe(page: import('@playwright/test').Page) {
-  return new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
-    .disableRules(EXCLUDED_RULES);
+  return new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']);
 }
 
 test.describe('Accessibility (WCAG 2.1 AA)', () => {

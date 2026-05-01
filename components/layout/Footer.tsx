@@ -185,7 +185,7 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-16 pt-8 border-t border-body/10">
-          <p className="font-body text-sm text-body/70 text-center">
+          <p className="font-body text-sm text-body/85 text-center">
             &copy; {currentYear} Moore Newton Quality Hardwoods Corp. All rights reserved.
           </p>
         </div>

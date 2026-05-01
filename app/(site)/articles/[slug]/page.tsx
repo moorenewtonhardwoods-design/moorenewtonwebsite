@@ -96,7 +96,7 @@ export default async function ArticlePage({ params }: PageProps) {
           <H1 className="mb-4">{article.title}</H1>
 
           {article.publishedAt && (
-            <p className="text-sm text-body/60 mb-8">
+            <p className="text-sm text-body/85 mb-8">
               Published {formatDate(article.publishedAt)}
             </p>
           )}

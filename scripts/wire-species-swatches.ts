@@ -22,16 +22,17 @@ const client = createClient({
 
 // Hero image mappings: species slug -> asset filename (without extension)
 // Based on actual uploaded filenames in Sanity and species slugs
-// Species with no swatch yet: alder, ash, honduran-mahogany, western-red-cedar
 const heroImageMappings: Record<string, string> = {
-  'white-oak': 'white-oak-plainsliced', // plain-sawn white oak (if document exists)
+  'alder': 'alder',
+  'ash': 'ash-plain-sliced',
+  'white-oak': 'white-oak-plainsliced',
   'red-oak': 'red-oak-plainsliced',
   'quartersawn-white-oak': 'white-oak-quartered',
   'white-oak-rift': 'white-oak-rift',
   'cherry': 'cherry-plainsliced',
-  'walnut': 'walnut-plainsliced', // slug is 'walnut', title is 'Black Walnut'
+  'walnut': 'walnut-plainsliced',
   'hard-maple': 'maple-plainsliced',
-  'soft-maple': 'maple-soft-curly', // only soft-maple swatch we have
+  'soft-maple': 'maple-soft-curly',
   'african-mahogany': 'mahogany-khaya-plainsliced',
   'birch': 'birch-natural-rotary',
   'douglas-fir': 'douglasfir-vg',
@@ -43,7 +44,8 @@ const heroImageMappings: Record<string, string> = {
   'jatoba': 'jatoba',
   'sugar-pine': 'pine-clear',
   'ponderosa-pine': 'pine-knotty',
-  // No swatches for: alder, ash, honduran-mahogany, western-red-cedar
+  // Pending species pages: beech (european-beech), bamboo
+  // No swatches yet: honduran-mahogany, western-red-cedar
 };
 
 // Gallery mappings: species slug -> array of { filename, caption }
@@ -51,6 +53,9 @@ const heroImageMappings: Record<string, string> = {
 // Note: white-oak gallery is empty because quartersawn and rift are separate species pages
 const galleryMappings: Record<string, Array<{ filename: string; caption: string }>> = {
   // white-oak: no gallery (quartersawn and rift have their own species pages)
+  'ash': [
+    { filename: 'ash-quartersliced', caption: 'Quartersliced' },
+  ],
   'red-oak': [
     { filename: 'red-oak-quartered', caption: 'Quartersliced' },
     { filename: 'red-oak-rift', caption: 'Rift' },
@@ -79,6 +84,16 @@ const galleryMappings: Record<string, Array<{ filename: string; caption: string 
 // Descriptions pulled verbatim from Copy/Species - *.md Grain & Appearance sections
 // Keys match actual uploaded filenames in Sanity
 const altTextMappings: Record<string, string> = {
+  // Alder — diffuse-porous, fine uniform texture, pale tan to light reddish-brown
+  'alder': 'Alder face showing fine uniform grain with pale tan to light reddish-brown color',
+  // Ash — ring-porous, strong grain pattern, pale tan to light brown
+  'ash-plain-sliced': 'Ash plain-sliced face showing bold cathedral grain with pale tan heartwood',
+  'ash-quartersliced': 'Ash quartersliced face showing straight grain with consistent pale tan color',
+  // European Beech — diffuse-porous, fine uniform texture, pale cream to light tan with pink undertones
+  'beech': 'European beech face showing fine uniform grain with pale cream color and subtle pink undertones',
+  // Bamboo — grass species with distinctive edge-grain appearance
+  'bamboo-amber-edge-grain': 'Bamboo amber edge-grain panel showing caramelized color with linear striped pattern',
+  'bamboo-natural-edge-grain': 'Bamboo natural edge-grain panel showing pale blonde color with linear striped pattern',
   // White Oak — ring-porous with closed heartwood, pale tan to warm medium brown with olive undertones
   'white-oak-plainsliced': 'White oak plain-sliced face showing bold cathedral grain with warm medium brown heartwood',
   'white-oak-quartered': 'Quartersawn white oak face showing medullary-ray fleck figure with straight grain',

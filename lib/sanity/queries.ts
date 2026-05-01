@@ -513,25 +513,29 @@ export interface FaceSpeciesSwatch {
 export async function getFaceSpeciesSwatches(): Promise<FaceSpeciesSwatch[]> {
   return sanityFetch<FaceSpeciesSwatch[]>({
     query: /* groq */ `*[_type == "sanity.imageAsset" && (
-      originalFilename match "white-oak*" ||
-      originalFilename match "red-oak*" ||
-      originalFilename match "cherry*" ||
-      originalFilename match "walnut*" ||
-      originalFilename match "maple*" ||
-      originalFilename match "mahogany*" ||
+      originalFilename match "alder*" ||
+      originalFilename match "ash*" ||
+      originalFilename match "bamboo*" ||
+      originalFilename match "beech*" ||
       originalFilename match "birch*" ||
+      originalFilename match "cedar*" ||
+      originalFilename match "cherry*" ||
       originalFilename match "douglasfir*" ||
       originalFilename match "hickory*" ||
+      originalFilename match "jatoba*" ||
+      originalFilename match "lacewood*" ||
+      originalFilename match "mahogany*" ||
+      originalFilename match "maple*" ||
+      originalFilename match "padauk*" ||
+      originalFilename match "pine*" ||
       originalFilename match "poplar*" ||
+      originalFilename match "red-oak*" ||
+      originalFilename match "rosewood*" ||
       originalFilename match "sapele*" ||
       originalFilename match "teak*" ||
-      originalFilename match "cedar*" ||
-      originalFilename match "pine*" ||
-      originalFilename match "jatoba*" ||
-      originalFilename match "rosewood*" ||
-      originalFilename match "lacewood*" ||
-      originalFilename match "padauk*" ||
+      originalFilename match "walnut*" ||
       originalFilename match "wenge*" ||
+      originalFilename match "white-oak*" ||
       originalFilename match "zebrawood*"
     )] | order(originalFilename asc) {
       _id,

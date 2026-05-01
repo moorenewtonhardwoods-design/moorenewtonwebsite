@@ -209,7 +209,7 @@ function SwatchTile({ swatch, onClick }: SwatchTileProps) {
         <p className="font-display text-sm tracking-wide uppercase text-emphasis group-hover:text-accent transition-colors">
           {swatch.speciesName}
         </p>
-        {swatch.cut && <Caption className="text-body/70">{swatch.cut}</Caption>}
+        {swatch.cut && <Caption className="text-body/85">{swatch.cut}</Caption>}
       </div>
     </>
   );

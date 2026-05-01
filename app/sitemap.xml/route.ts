@@ -42,7 +42,7 @@ ${urlEntries}
 }
 
 export async function GET() {
-  const [species, products] = await Promise.all([
+  const [species, products, articles] = await Promise.all([
     sanityFetch<SitemapEntry[]>({
       query: /* groq */ `*[_type == "speciesPage" && defined(slug.current)] | order(_updatedAt desc) {
         "slug": slug.current,
@@ -57,6 +57,13 @@ export async function GET() {
       }`,
       tags: ['sanity:products'],
     }),
+    sanityFetch<SitemapEntry[]>({
+      query: /* groq */ `*[_type == "article" && defined(slug.current) && defined(publishedAt)] | order(publishedAt desc) {
+        "slug": slug.current,
+        _updatedAt
+      }`,
+      tags: ['sanity:articles'],
+    }),
   ]);
 
   const staticRoutes: SitemapRoute[] = [
@@ -67,6 +74,7 @@ export async function GET() {
     { url: '/delivery', changefreq: 'monthly', priority: 0.7 },
     { url: '/species', changefreq: 'weekly', priority: 0.9 },
     { url: '/products', changefreq: 'weekly', priority: 0.9 },
+    { url: '/articles', changefreq: 'weekly', priority: 0.8 },
   ];
 
   const speciesRoutes: SitemapRoute[] = species.map((s) => ({
@@ -83,7 +91,14 @@ export async function GET() {
     priority: 0.7,
   }));
 
-  const allRoutes = [...staticRoutes, ...speciesRoutes, ...productRoutes];
+  const articleRoutes: SitemapRoute[] = articles.map((a) => ({
+    url: `/articles/${a.slug}`,
+    lastmod: formatDate(a._updatedAt),
+    changefreq: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  const allRoutes = [...staticRoutes, ...speciesRoutes, ...productRoutes, ...articleRoutes];
 
   return new Response(generateSitemapXml(allRoutes), {
     headers: {
